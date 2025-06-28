@@ -1,0 +1,3 @@
+# Python のバイトコードキャッシュ
+__pycache__/
+*.py[cod]
