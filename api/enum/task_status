@@ -1,0 +1,11 @@
+from enum import Enum
+
+class TaskStatus(Enum):
+    NOT_STARTED = (1, '未対応')
+    IN_PROGRESS = (2, '対応中')
+    COMPLETED = (3, '完了')
+
+
+    def __init__(self, value, name):
+        self.value = value
+        self.name = name
