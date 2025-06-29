@@ -1,5 +1,5 @@
 [project]
-name = "ai-todo-list-app"
+name = "ai-todo-list-backend-app"
 version = "0.1.0"
 description = ""
 authors = [

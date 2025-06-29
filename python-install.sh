@@ -1,6 +1,6 @@
 docker-compose run \
   --entrypoint "poetry init \
-    --name ai-todo-list-app \
+    --name ai-todo-list-backend-app \
     --dependency fastapi \
     --dependency uvicorn[standard]" \
-  ai-todo-list-app
+  ai-ai-todo-list-backend-app
