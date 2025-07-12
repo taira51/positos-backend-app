@@ -5,6 +5,7 @@ from typing import List
 
 import api.schemas.task as task_schema
 import api.cruds.task as task_crud
+import api.models.task as task_model
 
 router = APIRouter()
 
@@ -35,3 +36,8 @@ async def delete(task_id: int, db: AsyncSession = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Task not found")
 
     return await task_crud.delete(db, original=task)
+
+#タスクを生成して返却する
+@router.post("/generate_tasks", response_model=List[task_schema.TaskBase])
+async def generateTasks(request: task_schema.PromptRequest):
+    return await task_crud.generateTasks(request.prompt)

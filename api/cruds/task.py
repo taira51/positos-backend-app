@@ -51,3 +51,13 @@ async def update(db: AsyncSession, task_create: task_schema.TaskCreate, original
 async def delete(db: AsyncSession, original: task_model.Task) -> None:
     await db.delete(original)
     await db.commit()
+
+#タスクをChatGPT APIで生成する
+async def generateTasks(prompt: str) -> List[task_schema.TaskCreateResponse]:
+    #TODO ChatGPT連携（モックとして仮のタスクを生成して返却する）
+    generated = [
+        {"taskId": None, "taskName": "生成されたタスク３", "taskStatus": 0},
+        {"taskId": None, "taskName": "生成されたタスク４", "taskStatus": 0},
+        {"taskId": None, "taskName": "生成されたタスク５", "taskStatus": 0},
+    ]
+    return [task_schema.TaskBase(**t) for t in generated]

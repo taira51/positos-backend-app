@@ -21,3 +21,7 @@ class TaskCreateResponse(TaskCreate):
 #タスク（GETレスポンス）
 class TaskGet(TaskBase):
     taskId: int
+
+#タスク生成プロンプト
+class PromptRequest(BaseModel):
+    prompt: str
