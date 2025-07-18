@@ -4,6 +4,8 @@ from typing import List, Tuple, Optional
 from sqlalchemy import select
 from sqlalchemy.engine import Result
 
+from datetime import datetime
+
 import api.models.task as task_model
 import api.schemas.task as task_schema
 
@@ -25,6 +27,9 @@ async def get_all(db: AsyncSession) -> List[Tuple[int, str, int]]:
                 task_model.Task.taskId,
                 task_model.Task.taskName,
                 task_model.Task.taskStatus,
+                task_model.Task.taskOrder,
+                task_model.Task.createUserId,
+                task_model.Task.createDateTime,
             )
         )
     )
@@ -53,11 +58,11 @@ async def delete(db: AsyncSession, original: task_model.Task) -> None:
     await db.commit()
 
 #タスクをChatGPT APIで生成する
-async def generateTasks(prompt: str) -> List[task_schema.TaskCreateResponse]:
+async def generateTasks(prompt: str) -> List[task_schema.TaskBase]:
     #TODO ChatGPT連携（モックとして仮のタスクを生成して返却する）
     generated = [
-        {"taskId": None, "taskName": "生成されたタスク３", "taskStatus": 0},
-        {"taskId": None, "taskName": "生成されたタスク４", "taskStatus": 0},
-        {"taskId": None, "taskName": "生成されたタスク５", "taskStatus": 0},
+        {"taskId": 1, "taskName": "生成されたタスク３", "taskStatus": 1, "taskOrder": 0, "taskMemo": "生成されたタスクメモ３", "taskDeadline": None, "taskCompletedUserId": None, "createUserId": "Aさん", "createDateTime": datetime(2025, 7, 13, 19, 51, 8)},
+        {"taskId": 2, "taskName": "生成されたタスク４", "taskStatus": 1, "taskOrder": 0, "taskMemo": "生成されたタスクメモ４", "taskDeadline": None, "taskCompletedUserId": None, "createUserId": "Aさん", "createDateTime": datetime(2025, 7, 13, 19, 51, 8)},
+        {"taskId": 3, "taskName": "生成されたタスク５", "taskStatus": 1, "taskOrder": 0, "taskMemo": "生成されたタスクメモ５", "taskDeadline": None, "taskCompletedUserId": None, "createUserId": "Aさん", "createDateTime": datetime(2025, 7, 13, 19, 51, 8)},
     ]
     return [task_schema.TaskBase(**t) for t in generated]

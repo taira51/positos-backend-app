@@ -10,7 +10,7 @@ import api.models.task as task_model
 router = APIRouter()
 
 #タスクを全件取得する
-@router.get("/tasks", response_model=List[task_schema.TaskGet])
+@router.get("/tasks", response_model=List[task_schema.TaskBase])
 async def get_all(db: AsyncSession = Depends(get_db)):
     return await task_crud.get_all(db)
 
