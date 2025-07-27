@@ -1,4 +1,4 @@
-# ai-positos-backend-app
+# positos-backend-app
 
 ### 関連URL
 1. [Swagger UI（ローカル）](http://localhost:8000/docs)
