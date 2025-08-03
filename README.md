@@ -2,6 +2,7 @@
 
 ### 関連URL
 1. [Swagger UI（ローカル）](http://localhost:8000/docs)
+1. [ReDoc](http://localhost:8000/redoc)
 
 
 ### 環境構築コマンド

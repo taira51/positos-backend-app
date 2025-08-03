@@ -3,10 +3,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import Response
-from api.routers import task
+from api.routers import task, project
 
 app = FastAPI()
 app.include_router(task.router)
+app.include_router(project.router)
 
 # CORS 設定
 app.add_middleware(

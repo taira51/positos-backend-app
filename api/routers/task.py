@@ -5,22 +5,24 @@ from typing import List
 
 import api.schemas.task as task_schema
 import api.cruds.task as task_crud
-import api.models.task as task_model
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/task",
+    tags=["task"]
+)
 
 #タスクを全件取得する
-@router.get("/tasks", response_model=List[task_schema.TaskBase])
+@router.get("", response_model=List[task_schema.TaskBase])
 async def get_all(db: AsyncSession = Depends(get_db)):
     return await task_crud.get_all(db)
 
 #タスクを作成する
-@router.post("/tasks", response_model=task_schema.TaskCreateResponse)
+@router.post("", response_model=task_schema.TaskCreateResponse)
 async def create(task_body: task_schema.TaskCreate, db: AsyncSession = Depends(get_db)):
     return await task_crud.create(db, task_body)
 
 #タスクを更新する
-@router.put("/tasks/{task_id}", response_model=task_schema.TaskCreateResponse)
+@router.put("/{task_id}", response_model=task_schema.TaskCreateResponse)
 async def update(task_id: int, task_body: task_schema.TaskCreate, db: AsyncSession = Depends(get_db)):
     task = await task_crud.get_by_id(db, task_id=task_id)
     if task is None:
@@ -29,7 +31,7 @@ async def update(task_id: int, task_body: task_schema.TaskCreate, db: AsyncSessi
     return await task_crud.update(db, task_body, original=task)
 
 #タスクを削除する
-@router.delete("/tasks/{task_id}", response_model=None)
+@router.delete("/{task_id}", response_model=None)
 async def delete(task_id: int, db: AsyncSession = Depends(get_db)):
     task = await task_crud.get_by_id(db, task_id=task_id)
     if task is None:
@@ -38,6 +40,6 @@ async def delete(task_id: int, db: AsyncSession = Depends(get_db)):
     return await task_crud.delete(db, original=task)
 
 #タスクを生成して返却する
-@router.post("/generate_tasks", response_model=List[task_schema.TaskBase])
+@router.post("/generate", response_model=List[task_schema.TaskBase])
 async def generateTasks(request: task_schema.PromptRequest):
     return await task_crud.generateTasks(request.prompt)
