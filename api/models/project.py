@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime, Text
 from sqlalchemy.dialects.mysql import CHAR
-from datetime import datetime, timezone
+from datetime import datetime
+from zoneinfo import ZoneInfo
 import uuid
 
 from api.db import Base
@@ -22,10 +23,10 @@ class Project(Base):
     createUserId = Column(String(128), nullable=True)
 
     # 作成日時（必須）
-    createDateTime = Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
+    createDateTime = Column(DateTime, nullable=False, default=lambda: datetime.now(ZoneInfo("Asia/Tokyo")))
 
     # 更新ユーザーID（Firebase UID、任意）
     updateUserId = Column(String(128), nullable=True)
 
     # 更新日時（必須）
-    updateDateTime = Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+    updateDateTime = Column(DateTime, nullable=False, default=lambda: datetime.now(ZoneInfo("Asia/Tokyo")), onupdate=lambda: datetime.now(ZoneInfo("Asia/Tokyo")))

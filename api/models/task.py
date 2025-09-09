@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
-from datetime import datetime, timezone
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from api.db import Base
 
@@ -33,10 +34,10 @@ class Task(Base):
     createUserId = Column(String(128), nullable=False)
 
     # 作成日時
-    createDateTime = Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
+    createDateTime = Column(DateTime, nullable=False, default=lambda: datetime.now(ZoneInfo("Asia/Tokyo")))
 
     # 更新ユーザーID（Firebase UID）
     updateUserId = Column(String(128), nullable=True)
 
     # 更新日時
-    updateDateTime = Column(DateTime, nullable=True, onupdate=lambda: datetime.now(timezone.utc))
+    updateDateTime = Column(DateTime, nullable=True, onupdate=lambda: datetime.now(ZoneInfo("Asia/Tokyo")))
