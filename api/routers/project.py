@@ -25,7 +25,7 @@ async def get(
     projectId: UUID,
     db: AsyncSession = Depends(get_db)
 ):
-    project = project_crud.get(db, projectId)
+    project = await project_crud.get_by_id(db, projectId)
     if project is None:
         raise HTTPException(status_code=404, detail="Project not found")
     return project
